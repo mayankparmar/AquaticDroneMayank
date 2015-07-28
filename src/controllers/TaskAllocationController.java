@@ -1,14 +1,19 @@
 package controllers;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
+import commoninterface.AquaticDroneCI;
 import commoninterface.sensors.GeoFenceCISensor;
+import commoninterface.sensors.InsideBoundaryCISensor;
+import commoninterface.utils.CoordinateUtilities;
+import commoninterface.utils.Line;
 import mathutils.Vector2d;
 
 import controllers.Controller;
 import simulation.Simulator;
 import simulation.robot.Robot;
-
+import simulation.robot.sensors.Sensor;
 import simulation.robot.CISensorWrapper;
 import simulation.robot.DifferentialDriveRobot;
 
@@ -25,7 +30,8 @@ public class TaskAllocationController extends Controller {
 	 */
 	private static final long serialVersionUID = 1L;
 	private DifferentialDriveRobot r;
-	private CISensorWrapper gfSensor, boundarySensor;
+	private CISensorWrapper gfSensor, boundarySensor, inBounds;
+//	private Sensor inBounds;
 	
 	private int numberOfRobots;
 	private double width;
@@ -55,6 +61,8 @@ public class TaskAllocationController extends Controller {
 		
 		gfSensor = (CISensorWrapper)robot.getSensorWithId(3);
 		boundarySensor = (CISensorWrapper)robot.getSensorWithId(4);
+		//inBounds = (CISensorWrapper)robot.getSensorWithId(5);
+//		inBounds = robot.getSensorByType(InsideBoundaryCISensor.class);
 		
 		switch(currentState){
 		
@@ -84,7 +92,8 @@ public class TaskAllocationController extends Controller {
 		// TODO Auto-generated method stub
 		
 		r.setWheelSpeed(0.3, 0.3);
-		
+		//System.out.println(inBounds.insideBoundary());
+
 		if(gfSensor.getSensorReading(0) > 0.5) {
 			r.setOrientation(sim.getRandom().nextDouble() * Math.PI * 2);
 		}
@@ -103,6 +112,7 @@ public class TaskAllocationController extends Controller {
 //		}
 	}
 	
+
 	private void randomOrientation(){
 		r.setOrientation(sim.getRandom().nextDouble()*Math.PI*2);
 		currentState = State.AREA_ALLOCATION;
@@ -111,8 +121,8 @@ public class TaskAllocationController extends Controller {
 	private void explore(){
 		Vector2d currentPosition;
 		r.setWheelSpeed(0.5, 0.5);
-		currentPosition = r.getPosition();
-		System.out.println(currentPosition.x);
+		//currentPosition = r.getPosition();
+		//System.out.println(currentPosition.x);
 	}
 
 }

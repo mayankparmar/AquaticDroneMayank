@@ -31,6 +31,9 @@ public class TaskAllocationController extends Controller {
 	private static final long serialVersionUID = 1L;
 	private DifferentialDriveRobot r;
 	private CISensorWrapper gfSensor, boundarySensor, inBounds;
+//	CISensorWrapper boundsWrapper = (CISensorWrapper)robot.getSensorWithId(6);
+	
+//	InsideBoundaryCISensor bounds = (InsideBoundaryCISensor)boundsWrapper.getCisensor();
 //	private Sensor inBounds;
 	
 	private int numberOfRobots;
@@ -61,8 +64,8 @@ public class TaskAllocationController extends Controller {
 		
 		gfSensor = (CISensorWrapper)robot.getSensorWithId(3);
 		boundarySensor = (CISensorWrapper)robot.getSensorWithId(4);
-		//inBounds = (CISensorWrapper)robot.getSensorWithId(5);
-//		inBounds = robot.getSensorByType(InsideBoundaryCISensor.class);
+		inBounds = (CISensorWrapper)robot.getSensorWithId(5);
+		
 		
 		switch(currentState){
 		
@@ -92,7 +95,9 @@ public class TaskAllocationController extends Controller {
 		// TODO Auto-generated method stub
 		
 		r.setWheelSpeed(0.3, 0.3);
-		//System.out.println(inBounds.insideBoundary());
+		
+		System.out.println(inBounds.getSensorReading(0));
+		
 
 		if(gfSensor.getSensorReading(0) > 0.5) {
 			r.setOrientation(sim.getRandom().nextDouble() * Math.PI * 2);

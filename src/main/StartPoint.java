@@ -7,7 +7,7 @@ public class StartPoint {
 	
 	public static void main(String[] args) {
 		try {
-			new CombinedGui(new String[]{"--gui","classname=CIResultViewerGui,renderer=(classname=EnvironmentRenderer))"});
+			new CombinedGui(new String[]{"--gui","classname=CIResultViewerGui,renderer=(classname=CITwoDRenderer))"});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

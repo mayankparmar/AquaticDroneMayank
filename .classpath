@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="/JBotAquatic"/>
 	<classpathentry kind="src" path="/CommonInterface"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Behaviors"/>
+	<classpathentry kind="lib" path="voronoi.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

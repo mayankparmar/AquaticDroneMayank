@@ -64,7 +64,7 @@ public class TaskAllocationController extends Controller {
 		
 		gfSensor = (CISensorWrapper)robot.getSensorWithId(3);
 		boundarySensor = (CISensorWrapper)robot.getSensorWithId(4);
-		inBounds = (CISensorWrapper)robot.getSensorWithId(5);
+		//inBounds = (CISensorWrapper)robot.getSensorWithId(5);
 		
 		
 		switch(currentState){
@@ -96,7 +96,7 @@ public class TaskAllocationController extends Controller {
 		
 		r.setWheelSpeed(0.3, 0.3);
 		
-		System.out.println(inBounds.getSensorReading(0));
+		//System.out.println(inBounds.getSensorReading(0));
 		
 
 		if(gfSensor.getSensorReading(0) > 0.5) {

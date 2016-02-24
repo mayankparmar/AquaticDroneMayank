@@ -51,7 +51,11 @@ public class PartitionedEnvironment extends OpenEnvironment {
     	super.setup(simulator);	//Sets the position of the drones randomly
     	numberOfRobots = simulator.getRobots().size();
     	
-    	positionDrones(simulator);
+    	//positionDrones(simulator);
+    	for (Robot r : robots) {
+			AquaticDrone drone = (AquaticDrone) r;
+			drone.setPosition(-48, -48);
+    	}
 //    	findRandomPoint(simulator, numberOfRobots);
     	drawGeoFence(simulator);
     }
@@ -74,25 +78,25 @@ private void drawGeoFence(Simulator simulator) {
 		fence1.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+15, minY)));
 		fence1.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+15, maxY)));
 		fence1.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX, maxY)));
-		addLines(fence1.getWaypoints(), simulator);
+//		addLines(fence1.getWaypoints(), simulator);
 		
 		fence2.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+15, minY)));
 		fence2.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+30, minY)));
 		fence2.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+30, maxY)));
 		fence2.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+15, maxY)));
-		addLines(fence2.getWaypoints(), simulator);
+//		addLines(fence2.getWaypoints(), simulator);
 		
 		fence3.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+30, minY)));
 		fence3.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+45, minY)));
 		fence3.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+45, maxY)));
 		fence3.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+30, maxY)));
-		addLines(fence3.getWaypoints(), simulator);
+//		addLines(fence3.getWaypoints(), simulator);
 		
 		fence4.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+45, minY)));
 		fence4.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+60, minY)));
 		fence4.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+60, maxY)));
 		fence4.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+45, maxY)));
-		addLines(fence4.getWaypoints(), simulator);
+//		addLines(fence4.getWaypoints(), simulator);
 		
 		fence5.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+60, minY)));
 		fence5.addWaypoint(CoordinateUtilities.cartesianToGPS(new commoninterface.mathutils.Vector2d(minX+75, minY)));
@@ -110,17 +114,17 @@ private void drawGeoFence(Simulator simulator) {
 		for (Robot r : robots){
 			AquaticDroneCI drone = (AquaticDroneCI) r;
 			if(r.getId() == 0){
-				drone.getEntities().add(fence1);
-				drone.getEntities().add(fence2);
-//				drone.getEntities().add(environmentBoundary);
+				//drone.getEntities().add(fence1);
+				//drone.getEntities().add(fence2);
+				drone.getEntities().add(environmentBoundary);
 			}
 			if(r.getId() == 1){
-				drone.getEntities().add(fence3);
-//				drone.getEntities().add(environmentBoundary);
+//				drone.getEntities().add(fence3);
+				drone.getEntities().add(environmentBoundary);
 			}
 			if(r.getId() == 2){
-				drone.getEntities().add(fence4);
-//				drone.getEntities().add(environmentBoundary);
+//				drone.getEntities().add(fence4);
+				drone.getEntities().add(environmentBoundary);
 			}
 			if(r.getId() == 3){
 //				drone.getEntities().add(fence4);
@@ -184,7 +188,7 @@ private void positionDrones(Simulator simulator) {
 		// TODO Auto-generated method stub
 		for (Robot r : robots) {
 			AquaticDrone drone = (AquaticDrone) r;
-			drone.setPosition(15, 15);
+			drone.setPosition(-50, 30);
 			drone.setOrientation(0);
 			    		
 			double rangeMin = -37;

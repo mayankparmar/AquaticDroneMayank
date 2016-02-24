@@ -8,6 +8,8 @@
 	<classpathentry kind="src" path="/JBotAquatic"/>
 	<classpathentry kind="src" path="/CommonInterface"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Behaviors"/>
-	<classpathentry kind="lib" path="voronoi.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Voronoi-Treemap-Library"/>
+	<classpathentry kind="lib" path="jython.jar"/>
+	<classpathentry kind="lib" path="H:/git/commons-math3-3.6/commons-math3-3.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

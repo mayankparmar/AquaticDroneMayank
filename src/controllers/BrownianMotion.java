@@ -2,7 +2,12 @@ package controllers;
 
 import java.util.Random;
 
+import org.apache.commons.math3.distribution.LevyDistribution;
+import org.apache.commons.math3.distribution.NormalDistribution;
+
+import commoninterface.entities.GeoFence;
 import controllers.Controller;
+import logger.DataLogger;
 import simulation.Simulator;
 import simulation.robot.CISensorWrapper;
 import simulation.robot.DifferentialDriveRobot;
@@ -14,6 +19,11 @@ public class BrownianMotion extends Controller {
 	/**
 	 * 
 	 */
+	
+	
+	/*
+	 *  definitions of variables
+	 */	
 	private static final long serialVersionUID = 1L;
 	private CISensorWrapper inside, geoFenceSense;
 	private DifferentialDriveRobot robo;
@@ -23,21 +33,36 @@ public class BrownianMotion extends Controller {
 			SET_STEP, STEP, CHANGE_ORIENTATION
 	}
 	private State currentState = State.SET_STEP;
+	
+	private NormalDistribution normal;
+	private LevyDistribution levy;
+	String message;
+	GeoFence outerBoundary;
+	DataLogger d;
+	/*  *  */	
 
 	public BrownianMotion(Simulator simulator, Robot robot, Arguments args) {
+		
 		super(simulator, robot, args);
 		// TODO Auto-generated constructor stub
+		
 		geoFenceSense = (CISensorWrapper) robot.getSensorWithId(3);
 		robo = (DifferentialDriveRobot)robot;
 		inside = (CISensorWrapper)robot.getSensorWithId(1);
 		cumTime = 0;
-		minimumSteps = 1000;
+		minimumSteps = 100;
 		rand = new Random();
+		
+		normal = new NormalDistribution();
+		levy = new LevyDistribution(0, 0.276);
+		
+		d= new DataLogger();
+		
 	}
 	
 	public void controlStep(double time){
 		
-		
+		setOuterBounds();
 		
 		switch(currentState){
 		case SET_STEP:
@@ -55,9 +80,16 @@ public class BrownianMotion extends Controller {
 	
 	}
 
+	private void setOuterBounds() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void setStep(double clock) {
 		// TODO Auto-generated method stub
-		stepSize = Math.abs(((int) (rand.nextGaussian() * minimumSteps + minimumSteps)));
+		//stepSize = Math.abs(((int) (rand.nextGaussian() * minimumSteps + minimumSteps)));
+		
+		stepSize = Math.abs( (int)(normal.sample() * minimumSteps + minimumSteps) );
 		stepSize = stepSize + clock;
 		currentState = State.STEP;
 	}
@@ -71,6 +103,11 @@ public class BrownianMotion extends Controller {
 	private void brownian(double clock) {
 		// TODO Auto-generated method stub
 		//step = step + clock;
+		
+		message = Integer.toString(robo.getId()) + "," + Double.toString(robo.getPosition().x) + "," + Double.toString(robo.getPosition().y);
+		//System.out.println(message);
+		d.loggerInit("E1R1 - BM run10");
+		d.logStart(message);
 		
 		robo.setWheelSpeed(0.2, 0.2);
 		

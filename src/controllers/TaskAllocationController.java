@@ -3,6 +3,9 @@ package controllers;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import org.apache.commons.math3.distribution.LevyDistribution;
+import org.apache.commons.math3.distribution.NormalDistribution;
+
 import commoninterface.AquaticDroneCI;
 import commoninterface.sensors.GeoFenceCISensor;
 import commoninterface.sensors.InsideBoundaryCISensor;
@@ -40,6 +43,8 @@ public class TaskAllocationController extends Controller {
 	private double width;
 	private double height;
 	private Simulator sim;
+	private LevyDistribution levy;
+	private NormalDistribution normal;
 	
 	public TaskAllocationController(Simulator simulator, Robot robot,
 			Arguments args) {
@@ -50,6 +55,8 @@ public class TaskAllocationController extends Controller {
 		height = args.getArgumentAsDoubleOrSetDefault("height", 45);
 		r = (DifferentialDriveRobot)robot;
 		sim = simulator;
+		levy = new LevyDistribution(0, 0.276);
+		normal = new NormalDistribution();
 	}
 
 	public enum State{

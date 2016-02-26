@@ -54,7 +54,7 @@ public class PartitionedEnvironment extends OpenEnvironment {
     	//positionDrones(simulator);
     	for (Robot r : robots) {
 			AquaticDrone drone = (AquaticDrone) r;
-			drone.setPosition(-48, -48);
+			drone.setPosition(0, 0);
     	}
 //    	findRandomPoint(simulator, numberOfRobots);
     	drawGeoFence(simulator);

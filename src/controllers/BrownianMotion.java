@@ -36,6 +36,7 @@ public class BrownianMotion extends Controller {
 	
 	private NormalDistribution normal;
 	private LevyDistribution levy;
+	private String filename;
 	String message;
 	GeoFence outerBoundary;
 	DataLogger d;
@@ -52,17 +53,15 @@ public class BrownianMotion extends Controller {
 		cumTime = 0;
 		minimumSteps = 100;
 		rand = new Random();
-		
+		filename = args.getArgumentAsString("file");
 		normal = new NormalDistribution();
 		levy = new LevyDistribution(0, 0.276);
 		
-		d= new DataLogger();
+		d = new DataLogger();
 		
 	}
 	
-	public void controlStep(double time){
-		
-		setOuterBounds();
+	public void controlStep(double time){		
 		
 		switch(currentState){
 		case SET_STEP:
@@ -78,11 +77,6 @@ public class BrownianMotion extends Controller {
 			break;
 		}
 	
-	}
-
-	private void setOuterBounds() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void setStep(double clock) {
@@ -106,12 +100,18 @@ public class BrownianMotion extends Controller {
 		
 		message = Integer.toString(robo.getId()) + "," + Double.toString(robo.getPosition().x) + "," + Double.toString(robo.getPosition().y);
 		//System.out.println(message);
-		d.loggerInit("E1R1 - BM run10");
+		d.loggerInit(filename);
 		d.logStart(message);
 		
 		robo.setWheelSpeed(0.2, 0.2);
 		
 		//System.out.println(stepSize);
+		
+		/*/////
+		
+		Why am I doing the following?
+		
+		///////*/
 		if(inside.getSensorReading(0) > 0.5) {
 			robo.setOrientation(rand.nextDouble() * Math.PI * 2);
 		}
